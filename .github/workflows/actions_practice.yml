@@ -1,14 +1,22 @@
 name: github actions practice
 run-name: ${{ github.actor }} is learning Github Actions
-on: 
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
-    
-jobs: 
-    say-hello:
-        runs-on: ubuntu-latest
-        steps:
-            - run: echo hello!
-        
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  salute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show event type
+        run: echo "Triggered by Event type ${{ github.event_name }}"
+      - name: Say hello to person who triggered the actions!
+        run: echo hello ${{ github.actor }}!
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run unit tests
+        run: npm test
