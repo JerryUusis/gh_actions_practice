@@ -18,5 +18,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Access project files in runner environment
+        uses: actions/checkout@v2
       - name: Run unit tests
         run: npm test
+        working-directory: gh_actions_practice
