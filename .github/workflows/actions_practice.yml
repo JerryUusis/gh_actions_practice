@@ -24,6 +24,14 @@ jobs:
         run: npm install
       - name: Run unit tests
         run: npm test
+      - name: Result
+        run: |
+          if npm test; then
+            echo "::set-output name=result::success"
+          else
+            echo "::set-output name=result::failure"
+            exit 1
+          fi
 
   test-condition-check-success:
     runs-on: ubuntu-latest
