@@ -20,7 +20,23 @@ jobs:
     steps:
       - name: Access project files in runner environment
         uses: actions/checkout@v2
-      - name: Install dependencies
+      - name: Install dependencies for the runner environment
         run: npm install
       - name: Run unit tests
         run: npm test
+
+  test-condition-check-success:
+    runs-on: ubuntu-latest
+    needs: test
+    if: ${{  needs.test.result == 'success'  }}
+    steps:
+      - name: Testing succesful!
+        run: echo "Unit tests passed succesfully!"
+
+  test-condition-check-failure:
+    runs-on: ubuntu-latest
+    needs: test
+    if: ${{ needs.test.result != 'success' }}
+    steps:
+      - name: "Testing failed!"
+        run: echo "Unit test failed"
