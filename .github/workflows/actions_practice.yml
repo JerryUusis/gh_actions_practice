@@ -22,4 +22,4 @@ jobs:
         uses: actions/checkout@v2
       - name: Run unit tests
         run: npm test
-        working-directory: gh_actions_practice
+        working-directory: ../..
