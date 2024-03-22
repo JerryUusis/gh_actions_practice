@@ -20,6 +20,7 @@ jobs:
     steps:
       - name: Access project files in runner environment
         uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
       - name: Run unit tests
         run: npm test
-        working-directory: .
