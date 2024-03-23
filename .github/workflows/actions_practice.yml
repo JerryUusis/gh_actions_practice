@@ -56,7 +56,7 @@ jobs: # Jobs consist different of different steps to test/simulate something. If
   prevent-push-if-failure:
     runs-on: ubuntu-latest
     needs: [test-condition-check-failure]
-    if: ${{ github.event_name == 'push' && needs.test-condition-check-failure.result == 'success' }}
+    if: ${{ github.event_name == 'push' && needs.test-condition-check-failure.result != 'success' }}
     steps: 
       - name: Cancel workflow
         run: echo "Unit tests failed, cancelling the workflow" && exit 1
