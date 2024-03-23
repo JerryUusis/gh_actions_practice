@@ -1,27 +1,29 @@
 name: github actions practice
 run-name: ${{ github.actor }} is learning Github Actions
-on:
-  push:
+on: #Chooses an event when to run actions
+  push: 
     branches: [main]
   pull_request:
     branches: [main]
 
-jobs:
-  salute:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Show event type
-        run: echo "Triggered by Event type ${{ github.event_name }}"
+jobs: # Jobs consist different of different steps to test/simulate something. If all steps pass, the job is successful.
+  salute: # Job name
+    runs-on: ubuntu-latest # Simulates an environment where the job gets executed. Here we have chosen Linux distribution called Ubuntu
+    steps: # Define steps of the job
+      - name: Show event type # Step name
+        run: echo "Triggered by Event type ${{ github.event_name }}" # Run command runs a bash script/prompt
       - name: Say hello to person who triggered the actions!
-        run: echo hello ${{ github.actor }}!
+        run: echo Hello ${{ github.actor }}!
 
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Access project files in runner environment
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2 # When we have 'uses:' we are using some prefined actions. This creates a clone of your repository in the simulated environment. You need it to access the project files
+      - name: Setup Node.js environment
+        uses: actions/node@v2  
       - name: Install dependencies for the runner environment
-        run: npm install
+        run: npm install # When you're using node modules in your testing they need to be installed in the simulated environment
       - name: Run unit tests
         run: npm test
       - name: Result
@@ -35,7 +37,7 @@ jobs:
 
   test-condition-check-success:
     runs-on: ubuntu-latest
-    needs: test
+    needs: test # 'needs' is importing the job called test in the job. 
     if: ${{  needs.test.result == 'success'  }}
     steps:
       - name: Testing succesful!
