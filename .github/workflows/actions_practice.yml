@@ -15,7 +15,7 @@ jobs: # Jobs consist different of different steps to test/simulate something. If
       - name: Say hello to person who triggered the actions!
         run: echo Hello ${{ github.actor }}!
 
-  build: 
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Acces project files in runner environment
@@ -26,8 +26,8 @@ jobs: # Jobs consist different of different steps to test/simulate something. If
         run: npm install
       - name: Run tests and build the project
         run: npm test && npm run build
-  
-  deploy: 
+
+  deploy:
     runs-on: ubuntu-latest
     needs: [build]
     if: ${{ github.event_name == 'push' && needs.build.result == 'success'}}
@@ -35,9 +35,15 @@ jobs: # Jobs consist different of different steps to test/simulate something. If
       - name: Announce building to be succesful
         run: echo Build was succesful. Deploying to Netlify
       - name: Deploy to Netlify
-        uses: netlify/actions/cli@master
+        uses: nwtgck/actions-netlify@v3.0
         with:
-          args: deploy --dir=build --prod
+          publish-dir: "./dist"
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GithubActions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
-  
+          NETILFY_SITE_ID: ${{secrets.NETLIFY_SITE_ID}}
