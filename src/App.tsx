@@ -11,6 +11,7 @@ function App() {
         <li>pull_request</li>
         <li>fork</li>
       </ul>
+      <p>This line should appear now on the latest build</p>
     </div>
   );
 }
