@@ -27,8 +27,8 @@ jobs: # Jobs consist different of different steps to test/simulate something. If
       - name: install node modules
         run: npm install
 
-      - name: Run eslint
-        run: npx eslint . --fix
+      - name: Check for linting errors
+        run: npx eslint 
 
   test:
     runs-on: ubuntu-latest
@@ -43,14 +43,6 @@ jobs: # Jobs consist different of different steps to test/simulate something. If
         run: npm install # When you're using node modules in your testing they need to be installed in the simulated environment
       - name: Run unit tests
         run: npm test
-      - name: Result
-        run: |
-          if npm test; then
-            echo "::set-output name=result::success"
-          else
-            echo "::set-output name=result::failure"
-            exit 1
-          fi
 
   prevent-push-if-failure:
     runs-on: ubuntu-latest
@@ -59,3 +51,5 @@ jobs: # Jobs consist different of different steps to test/simulate something. If
     steps: 
       - name: Cancel workflow if unit test fail
         run: echo "Unit tests failed, cancelling the workflow" && exit 1
+  
+  
