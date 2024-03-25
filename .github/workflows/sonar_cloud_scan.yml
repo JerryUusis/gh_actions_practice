@@ -13,3 +13,6 @@ jobs:
           uses: SonarSource/sonarcloud-github-action@master
           env: 
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          with:
+            organization: "jerryuusis"
+            projectKey: "gh_actions_practice"
