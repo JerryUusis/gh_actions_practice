@@ -9,10 +9,18 @@ jobs:
     steps:
         - name: Access project files in runner environment
           uses: actions/checkout@v4
+
+        - name: Setup node.js
+          uses: actions/setup-node@v4
+
+        - name: Install modules
+          run: npm install
+
+        - name: Build project
+          run: npm build
+
         - name: SonarCloud scan
           uses: SonarSource/sonarcloud-github-action@master
           env: 
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          with:
-            organization: "jerryuusis"
-            projectKey: "gh_actions_practice"
