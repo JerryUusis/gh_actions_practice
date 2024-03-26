@@ -6,4 +6,4 @@ Navigate to [https://nektosact.com/usage/index.html](https://nektosact.com/usage
 
 Once installed, type `act` in the terminal to emulate a push action to your repository.
 
-Update readme
+Update readme again
